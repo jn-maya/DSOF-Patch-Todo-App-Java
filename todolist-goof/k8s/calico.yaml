@@ -4084,6 +4084,10 @@ spec:
         # upgraded to use calico-ipam.
         - name: upgrade-ipam
           image: docker.io/calico/cni:v3.21.2
+          resources:
+            limits:
+              cpu: "1"
+              memory: "200Mi"
           command: ["/opt/cni/bin/calico-ipam", "-upgrade"]
           envFrom:
           - configMapRef:
@@ -4119,6 +4123,10 @@ spec:
         # and CNI network config file on each node.
         - name: install-cni
           image: docker.io/calico/cni:v3.21.2
+          resources:
+            limits:
+              cpu: "1"
+              memory: "200Mi"
           command: ["/opt/cni/bin/install"]
           envFrom:
           - configMapRef:
@@ -4171,6 +4179,10 @@ spec:
           volumeMounts:
           - name: flexvol-driver-host
             mountPath: /host/driver
+          resources:
+            limits:
+              cpu: "1"
+              memory: "200Mi"
           securityContext:
             readOnlyRootFilesystem: true
             privileged: false
@@ -4187,6 +4199,7 @@ spec:
         # host.
         - name: calico-node
           image: docker.io/calico/node:v3.21.2
+          imagePullPolicy: Always
           securityContext:
             readOnlyRootFilesystem: true
             privileged: false
@@ -4197,6 +4210,10 @@ spec:
               drop:
                 - all
               add: ["MKNOD"]
+          resources:
+            limits:
+              cpu: "1"
+              memory: "200Mi"
           envFrom:
           - configMapRef:
               # Allow KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT to be overridden for eBPF mode.
