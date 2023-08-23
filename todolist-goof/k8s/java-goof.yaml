@@ -30,11 +30,15 @@ spec:
             drop:
               - all
             add: ["MKNOD"]
+        livenessProbe:
+          exec:
+            command:
+              - ls
+        resources:
+          limits:
+            cpu: "1"
+            memory: "200Mi"
       restartPolicy: Always
-      livenessProbe:
-        exec:
-          command:
-            - ls
 
 
 ---
