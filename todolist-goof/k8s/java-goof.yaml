@@ -29,12 +29,12 @@ spec:
         readOnlyRootFilesystem: true
         privileged: false
         allowPrivilegeEscalation: false
-        runAsUser: 123123
         runAsNonRoot: true
+        runAsUser: 10001
         capabilities:
           drop:
             - all
-          add: []
+          add: ["MKNOD"]
 
 
 ---
