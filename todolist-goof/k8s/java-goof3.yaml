@@ -30,6 +30,14 @@ spec:
             drop:
               - all
             add: []
+        livenessProbe:
+          exec:
+            command:
+              - ls
+        resources:
+          limits:
+            cpu: "1"
+            memory: "200Mi"
         volumeMounts:
           - mountPath: /usr/local/tomcat/temp
             name: tomcat-temp
@@ -55,6 +63,8 @@ metadata:
   name: goof
 spec:
   type: LoadBalancer
+  loadBalancerSourceRanges:
+    - "192.168.1.119"
   ports:
     - port: 80
       protocol: TCP
