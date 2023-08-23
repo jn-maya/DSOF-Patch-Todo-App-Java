@@ -21,6 +21,22 @@ spec:
         imagePullPolicy: Always
         name: java-goof
       restartPolicy: Always
+      livenessProbe:
+        exec:
+          command:
+            - ls
+      securityContext:
+        readOnlyRootFilesystem: true
+        privileged: false
+        allowPrivilegeEscalation: false
+        runAsUser: 123123
+        runAsNonRoot: true
+        capabilities:
+          drop:
+            - all
+          add: []
+
+
 ---
 apiVersion: v1
 kind: Service
@@ -30,6 +46,8 @@ metadata:
   name: goof
 spec:
   type: LoadBalancer
+  loadBalancerSourceRanges:
+    - "192.168.1.119"
   ports:
     - port: 80
       protocol: TCP
