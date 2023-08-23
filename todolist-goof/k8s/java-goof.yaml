@@ -20,21 +20,21 @@ spec:
       - image: ${DOCKER_ACCOUNT}/java-goof:latest
         imagePullPolicy: Always
         name: java-goof
+        securityContext:
+          readOnlyRootFilesystem: true
+          privileged: false
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 10001
+          capabilities:
+            drop:
+              - all
+            add: ["MKNOD"]
       restartPolicy: Always
       livenessProbe:
         exec:
           command:
             - ls
-      securityContext:
-        readOnlyRootFilesystem: true
-        privileged: false
-        allowPrivilegeEscalation: false
-        runAsNonRoot: true
-        runAsUser: 10001
-        capabilities:
-          drop:
-            - all
-          add: ["MKNOD"]
 
 
 ---
